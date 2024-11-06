@@ -1,4 +1,6 @@
 import random
+import os
+
 
 def get_user_input():
     """Отримує базу слів, транскрипцій та перекладів від користувача"""
@@ -24,6 +26,7 @@ def get_user_input():
         else:
             print('Неправильний формат! Використовуйте формат "слово:транскрипція:переклад".')
 
+    os.system('cls' if os.name == 'nt' else 'clear')
     return words_base
 
 def print_separator():
@@ -50,6 +53,7 @@ def train_word_to_translation(words_base, count_training):
             print(f'НЕВІРНО! "{word}" -> "{translation}"')
             print_separator()  # Додаємо візуальну перегородку між словами
 
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(f'Вітаємо! Ви успішно завершили тренування. Лічильник: {count_training}')
 
 def train_translation_to_word(words_base, count_training):
@@ -71,6 +75,7 @@ def train_translation_to_word(words_base, count_training):
             print(f'НЕВІРНО! "{translation}" -> "{word}"')
             print_separator()  # Додаємо візуальну перегородку між словами
 
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(f'Вітаємо! Ви успішно завершили тренування. Лічильник: {count_training}')
 
 
