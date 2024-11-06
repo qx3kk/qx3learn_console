@@ -30,7 +30,7 @@ def print_separator():
     """Виводить візуальну перегородку"""
     print('\n' + '=' * 50 + '\n')
 
-def train_word_to_translation(words_base):
+def train_word_to_translation(words_base, count_training):
     """Тренування: слово -> переклад"""
     all_words = words_base.copy()  # Створюємо копію списку слів
 
@@ -50,9 +50,9 @@ def train_word_to_translation(words_base):
             print(f'НЕВІРНО! "{word}" -> "{translation}"')
             print_separator()  # Додаємо візуальну перегородку між словами
 
-    print('Вітаємо! Ви успішно завершили тренування.')
+    print(f'Вітаємо! Ви успішно завершили тренування. Лічильник: {count_training}')
 
-def train_translation_to_word(words_base):
+def train_translation_to_word(words_base, count_training):
     """Тренування: переклад -> слово"""
     all_words = words_base.copy()  # Створюємо копію списку слів
 
@@ -71,16 +71,17 @@ def train_translation_to_word(words_base):
             print(f'НЕВІРНО! "{translation}" -> "{word}"')
             print_separator()  # Додаємо візуальну перегородку між словами
 
-    print('Вітаємо! Ви успішно завершили тренування.')
+    print(f'Вітаємо! Ви успішно завершили тренування. Лічильник: {count_training}')
+
 
 def start_training():
     """Запускає тренування та вибір режиму"""
     words_base = get_user_input()  # Отримуємо базу слів від користувача
-
+    count_training = 0
     if not words_base:
         print('Словник порожній! Завершення програми.')
         return
-
+    preview_choice = ''
     while True:
         print('\nМеню:')
         print('1. Тренування слово -> переклад')
@@ -90,9 +91,19 @@ def start_training():
         choice = input('Оберіть режим (1, 2 або 3): ').strip()
         print_separator()
         if choice == '1':
-            train_word_to_translation(words_base)
+            if preview_choice != '1':
+                count_training = 1
+                preview_choice = '1'
+            else:
+                count_training += 1
+            train_word_to_translation(words_base, count_training)
         elif choice == '2':
-            train_translation_to_word(words_base)
+            if preview_choice != '2':
+                count_training = 1
+                preview_choice = '2'
+            else:
+                count_training += 1
+            train_translation_to_word(words_base, count_training)
         elif choice == '3':
             print('Вихід з програми.')
             break
